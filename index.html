@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Stories 🌏⟁</title>
+
+<meta name="description" content="Cinematic country storytelling website with dynamic country cards, YouTube videos, and cultural stories.">
+
+<!-- Security -->
+<meta http-equiv="Content-Security-Policy"
+content="
+default-src 'self';
+img-src 'self' https:;
+script-src 'self' https://pagead2.googlesyndication.com;
+style-src 'self' 'unsafe-inline';
+frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="pwa/manifest.json">
+<script defer src="assets/js/main.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <h1>WORLD STORIES ⟁</h1>
+  <p>Countries • Culture • Memory</p>
+  <input type="search" id="search" placeholder="Search country...">
+</header>
+
+<!-- Country Cards -->
+<section id="countries" class="countries"></section>
+
+<!-- Optional homepage video section -->
+<section class="video-section">
+  <h2>Latest Stories</h2>
+  <div class="video-grid">
+    <!-- Example slot -->
+    <div class="video-card">
+      <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID" allowfullscreen></iframe>
+      <p class="video-caption">Example video caption</p>
+    </div>
+  </div>
+</section>
+
+<!-- World map section -->
+<section class="map">
+  <h2>World Map (coming soon)</h2>
+  <img src="assets/images/world-map-placeholder.jpg" alt="World Map">
+</section>
+
+<footer>
+  <p>© 2025 World Stories</p>
+</footer>
+
+</body>
+</html>
