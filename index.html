@@ -29,9 +29,6 @@ crossorigin="anonymous"></script>
 <body>
 
 <header class="site-header">
-<body>
-
-<header class="site-header">
   <h1>WORLD STORIES ⟁</h1>
   <p>Countries • Culture • Memory</p>
   <input type="search" id="search" placeholder="Search country...">
@@ -42,15 +39,29 @@ crossorigin="anonymous"></script>
   <!-- Cards injected dynamically from countries.json -->
 </section>
 
-<!-- Optional homepage video section -->
-<section class="video-section">...</section>
+<!-- Homepage Video Section -->
+<section class="video-section">
+  <h2>Latest Stories</h2>
+  <div class="video-grid">
+    <div class="video-card">
+      <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID" allowfullscreen></iframe>
+      <p class="video-caption">Example video caption</p>
+    </div>
+    <!-- Add more video slots here -->
+  </div>
+</section>
 
-<!-- World map section -->
-<section class="map">...</section>
+<!-- World Map Section -->
+<section class="map">
+  <h2>World Map (coming soon)</h2>
+  <img src="assets/images/world-map-placeholder.jpg" alt="World Map">
+</section>
 
-<footer>...</footer>
+<footer>
+  <p>© 2025 World Stories</p>
+</footer>
 
-<!-- Carousel JS (keep only here, after the placeholder section) -->
+<!-- Carousel JS -->
 <script>
 const countriesContainer = document.getElementById('countries');
 
@@ -66,14 +77,15 @@ fetch('data/countries.json')
       countriesContainer.appendChild(card);
     });
 
+    // Auto-scroll carousel
     let scrollAmount = 0;
-    const scrollStep = 260;
-    const delay = 3000;
+    const scrollStep = 260; // card width + gap
+    const delay = 3000; // 3 seconds
 
     setInterval(() => {
       scrollAmount += scrollStep;
       if (scrollAmount >= countriesContainer.scrollWidth - countriesContainer.clientWidth) {
-        scrollAmount = 0;
+        scrollAmount = 0; // reset
       }
       countriesContainer.scrollTo({ left: scrollAmount, behavior: 'smooth' });
     }, delay);
