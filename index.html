@@ -1,40 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World Stories 🌏⟁</title>
-
+<meta charset="UTF‑8">
+<meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+<title>World Stories</title>
 <meta name="description" content="Cinematic country storytelling website with dynamic country cards, YouTube videos, and cultural stories.">
 
-<!-- Security -->
-<meta http-equiv="Content-Security-Policy"
+<!-- Security & AdSense -->
+<meta http‑equiv="Content‑Security‑Policy"
 content="
-default-src 'self';
-img-src 'self' https:;
-script-src 'self' https://pagead2.googlesyndication.com;
-style-src 'self' 'unsafe-inline';
-frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+default‑src 'self';
+img‑src 'self' https:;
+script‑src 'self' https://pagead2.googlesyndication.com;
+style‑src 'self' 'unsafe‑inline';
+frame‑src https://www.youtube.com https://www.youtube‑nocookie.com;
 ">
-
-<!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="manifest" href="pwa/manifest.json">
-<script defer src="assets/js/main.js"></script>
+
+<style>
+/* Global & background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 1s ease;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #ffecd2, #fcb69f);
+}
+
+/* Gradient overlay for readability */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+  z-index: 0;
+}
+
+/* Header */
+header.site-header {
+  text-align: center;
+  padding: 40px 20px;
+  color: #fff;
+  z-index: 1;
+}
+header.site-header h1 { font-size: 3em; margin: 0; }
+header.site-header .crafted { font-size: 1.2em; font-weight: 300; margin: 5px 0; }
+header.site-header p { font-size: 1.2em; margin: 10px 0 0; }
+
+/* Carousel */
+.countries-carousel-wrapper { overflow: hidden; width: 100%; position: relative; padding: 40px 0; z-index: 1; }
+.countries-carousel { display: flex; transition: transform 1s ease-in-out; }
+.country-card {
+  flex: 0 0 250px;
+  height: 150px;
+  margin: 0 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+.country-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  width: 200px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.sidebar h3 { text-align: center; margin-bottom: 10px; color: #333; }
+.sidebar .fact { background: #fff; margin-bottom: 10px; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 0.9em; }
+
+/* Sidebar toggle */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: #fff;
+  padding: 10px;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Proverbs */
+.proverb {
+  text-align: center;
+  font-size: 1.3em;
+  margin: 20px;
+  color: #fff;
+  font-style: italic;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  z-index: 1;
+  position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .countries-carousel-wrapper { padding: 20px 0; }
+  .country-card { flex: 0 0 45%; margin: 10px; }
+  .sidebar { transform: translateX(100%); width: 80%; max-height: none; top: 0; height: 100vh; }
+  .sidebar-toggle { display: block; }
+}
+</style>
 </head>
 
 <body>
 
 <header class="site-header">
-  <h1>WORLD STORIES ⟁</h1>
+  <h1>WORLD STORIES</h1>
+  <span class="crafted">crafted by an artist</span>
   <p>Countries • Culture • Memory</p>
-  <input type="search" id="search" placeholder="Search country...">
 </header>
 
-<!-- Country Cards Carousel -->
+<!-- Carousel -->
+<div class="countries-carousel-wrapper">
+  <div id="countries" class="countries-carousel"></div>
+</div>
+
+<!-- Proverbs -->
+<div class="proverb" id="proverb"></div>
+
+<!-- Sidebar toggle (mobile) -->
+<div class="sidebar-toggle" id="sidebarToggle">☰</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <h3>Travel Facts & News</h3>
+  <div class="fact">Fact: Adventure begins where comfort ends.</div>
+  <div class="fact">News: UNESCO announces new cultural heritage sites.</div>
+  <div class="fact">Fact: The Pacific Crest Trail spans 2,650 miles.</div>
+  <div class="fact">Fact: Cuba’s Viñales Valley has ancient mogotes.</div>
+</div>
+
+<!-- Video and Map Sections (unchanged) -->
+<section class="video-section">
+  <h2>Latest Stories</h2>
+  <div class="video-grid">
+    <div class="video-card">
+      <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID" allowfullscreen></iframe>
+      <p class="video-caption">Featured Story</p>
+    </div>
+  </div>
+</section>
+
+<section class="map">
+  <h2>World Map (coming soon)</h2>
+  <img src="assets/images/world-map-placeholder.jpg" alt="World Map">
+</section>
+
+<footer><p>© 2025 World Stories</p></footer>
+
+<script>
+// Countries & backgrounds with gradients
+const countries = [
+  { id:'japan', name:'Japan', image:'assets/images/japan.jpg', gradient:'linear-gradient(120deg,#ffecd2,#fcb69f)' },
+  { id:'vietnam', name:'Vietnam', image:'assets/images/vietnam.jpg', gradient:'linear-gradient(120deg,#cfd9df,#e2ebf0)' }
+];
+
+// Famous traveler proverbs
+const proverbs = [
+  "“We travel, some of us forever, to seek other states, other lives, other souls.” — Anaïs Nin",
+  "“The world is a book and those who do not travel read only one page.” — Saint Augustine",
+  "“Not all those who wander are lost.” — J.R.R. Tolkien",
+  "“Once a year, go someplace you’ve never been before.” — Anonymous",
+  "“Travel brings power and love back into your life.” — Rumi",
+  "“Wherever you go becomes a part of you somehow.” — Anita Desai",
+  "“The gladdest moment in human life is a departure into unknown lands.” — Sir Richard Burton",
+  "“Life is either a daring adventure or nothing.” — Helen Keller"
+];
+
+// Inject country cards
+const countriesContainer = document.getElementById('countries');
+countries.forEach(country => {
+  const card = document.createElement('a');
+  card.className = 'country-card';
+  card.href = `pages/${country.id}.html`;
+  card.innerHTML = `<img src="${country.image}" alt="${country.name}">`;
+  countriesContainer.appendChild(card);
+});
+
+// Sliding carousel + background
+let currentIndex = 0;
+function updateSlide() {
+  // Slide transform
+  countriesContainer.style.transform = `translateX(${-currentIndex*270}px)`;
+  // Dynamic gradient
+  document.body.style.background = countries[currentIndex].gradient;
+  document.body.style.background += `, url(${countries[currentIndex].image}) center/cover no-repeat`;
+}
+updateSlide();
+
+setInterval(()=> {
+  currentIndex = (currentIndex +1) % countries.length;
+  updateSlide();
+},4000);
+
+// Proverbs rotation
+const proverbEl = document.getElementById('proverb');
+let pIndex = 0;
+function showProverb(){
+  proverbEl.textContent = proverbs[pIndex];
+  pIndex = (pIndex+1) % proverbs.length;
+}
+showProverb();
+setInterval(showProverb,7000);
+
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+sidebarToggle.addEventListener('click',()=>{
+  if(sidebar.style.transform === 'translateX(0%)'){
+    sidebar.style.transform = 'translateX(100%)';
+  } else {
+    sidebar.style.transform = 'translateX(0%)';
+  }
+});
+</script>
+
+</body>
+</html><!-- Country Cards Carousel -->
 <section id="countries" class="countries-carousel">
   <!-- Cards injected dynamically from countries.json -->
 </section>
