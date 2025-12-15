@@ -18,26 +18,51 @@ body{
 
 /* ===== WELCOME OVERLAY ===== */
 #welcomeOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.35);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  text-align:center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.28);   /* MORE translucent */
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  text-align: center;
+
+  transition: opacity 1s ease, visibility 1s ease;
 }
+
+/* Text lines */
 #welcomeOverlay .line{
-  opacity:0;
-  transform:translateY(15px);
-  animation:fadeUp .8s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp .8s forwards;
+  margin: 10px 0;
 }
-#welcomeOverlay .line:nth-child(1){animation-delay:.3s}
-#welcomeOverlay .line:nth-child(2){animation-delay:1.2s}
-#welcomeOverlay .line:nth-child(3){animation-delay:2.1s}
+
+/* Bigger, readable typography */
+#welcomeOverlay .title{
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+#welcomeOverlay .crafted{
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 300;
+}
+
+#welcomeOverlay .tagline{
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+}
+
+/* Animation delays */
+#welcomeOverlay .line:nth-child(1){ animation-delay: .4s; }
+#welcomeOverlay .line:nth-child(2){ animation-delay: 1.3s; }
+#welcomeOverlay .line:nth-child(3){ animation-delay: 2.2s; }
 
 @keyframes fadeUp{
-  to{opacity:1;transform:translateY(0)}
+  to{ opacity:1; transform:translateY(0); }
 }
 
 /* ===== HEADER ===== */
@@ -140,11 +165,9 @@ footer{
 
 <!-- WELCOME -->
 <div id="welcomeOverlay">
-  <div>
-    <div class="line"><h1>WORLD STORIES</h1></div>
-    <div class="line"><p class="crafted">crafted by an artist</p></div>
-    <div class="line"><p>Countries • Culture • Memory</p></div>
-  </div>
+  <div class="line title">WORLD STORIES</div>
+  <div class="line crafted">crafted by an artist</div>
+  <div class="line tagline">Countries • Culture • Memory</div>
 </div>
 
 <header>
