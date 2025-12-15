@@ -61,5 +61,39 @@ crossorigin="anonymous"></script>
   <p>© 2025 World Stories</p>
 </footer>
 
+  <!-- ...other HTML content... -->
+
+  <section id="countries" class="countries-carousel"></section>
+
+  <!-- Carousel JS -->
+  <script>
+  const countriesContainer = document.getElementById('countries');
+
+  fetch('data/countries.json')
+    .then(res => res.json())
+    .then(countries => {
+      countries.forEach(country => {
+        const card = document.createElement('a');
+        card.className = 'country-card';
+        card.href = `pages/${country.id}.html`;
+        card.setAttribute('data-name', country.name);
+        card.innerHTML = `<img src="${country.image}" alt="${country.name}">`;
+        countriesContainer.appendChild(card);
+      });
+
+      // Auto-scroll carousel
+      let scrollAmount = 0;
+      const scrollStep = 260; // card width + gap
+      const delay = 3000; // 3 seconds
+
+      setInterval(() => {
+        scrollAmount += scrollStep;
+        if (scrollAmount >= countriesContainer.scrollWidth - countriesContainer.clientWidth) {
+          scrollAmount = 0; // reset
+        }
+        countriesContainer.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+      }, delay);
+    });
+  </script>
 </body>
 </html>
