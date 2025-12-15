@@ -5,5 +5,12 @@
     "mood": "Tradition • Silence • Resilience",
     "image": "assets/images/japan.jpg",
     "description": "Where memory lives in silence."
+  },
+  {
+    "id": "vietnam",
+    "name": "Vietnam",
+    "mood": "Emerald rivers • Timeless culture",
+    "image": "assets/images/vietnam.jpg",
+    "description": "Vietnam is a land of emerald rivers, terraced mountains, and rich cultural heritage. From bustling streets to serene temples, its story is one of resilience, beauty, and history."
   }
 ]
