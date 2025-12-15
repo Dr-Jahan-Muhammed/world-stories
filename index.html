@@ -1,40 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF‑8">
-<meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Stories</title>
-<meta name="description" content="Cinematic country storytelling website with dynamic country cards, YouTube videos, and cultural stories.">
-
-<!-- Security & AdSense -->
-<meta http‑equiv="Content‑Security‑Policy"
-content="
-default‑src 'self';
-img‑src 'self' https:;
-script‑src 'self' https://pagead2.googlesyndication.com;
-style‑src 'self' 'unsafe‑inline';
-frame‑src https://www.youtube.com https://www.youtube‑nocookie.com;
-">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
-/* Global & background */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  min-height:100vh;
   transition: background 1s ease;
-  min-height: 100vh;
-  background: linear-gradient(120deg, #ffecd2, #fcb69f);
 }
 
-/* Gradient overlay for readability */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Header */
+header.site-header {
+  text-align:center;
+  padding:40px 20px;
+  color:#fff;
+  position:relative;
+  z-index:2;
+}
+header.site-header h1 { font-size:3em; margin-bottom:5px; }
+header.site-header .crafted { font-size:1.2em; font-weight:300; margin-bottom:15px; display:block; }
+header.site-header p { font-size:1.2em; }
+
+/* Carousel */
+.countries-carousel-wrapper {
+  position:relative;
+  width:100%;
+  height:350px;
+  overflow:hidden;
+  margin:40px 0;
+}
+.countries-carousel {
+  display:flex;
+  transition: transform 1s ease-in-out;
+  height:100%;
+  position:relative;
+}
+.country-card {
+  flex:0 0 100%;
+  height:100%;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.country-card img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.country-name-overlay {
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.4);
+  color:#fff;
+  padding:10px 20px;
+  border-radius:8px;
+  font-size:2em;
+  font-family:'Georgia', serif;
+  text-shadow:0 2px 6px rgba(0,0,0,0.7);
+}
+
+/* Proverbs */
+.proverb {
+  text-align:center;
+  font-size:1.3em;
+  margin:20px;
+  font-style:italic;
+  color:#fff;
+  text-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Video Section */
+.video-section {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin:40px 0;
+}
+.video-section iframe { width:500px; height:280px; border:none; border-radius:10px; }
+
+/* Responsive */
+@media(max-width:768px){
+  .video-section { flex-direction:column; align-items:center; }
+  .video-section iframe { width:90%; height:200px; }
+  .country-name-overlay { font-size:1.5em; bottom:15px; padding:6px 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>WORLD STORIES</h1>
+  <span class="crafted">crafted by an artist</span>
+  <p>Countries • Culture • Memory</p>
+</header>
+
+<div class="countries-carousel-wrapper">
+  <div id="countries" class="countries-carousel"></div>
+</div>
+
+<div class="proverb" id="proverb"></div>
+
+<section class="video-section">
+  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_1" allowfullscreen></iframe>
+  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_2" allowfullscreen></iframe>
+</section>
+
+<footer>
+  <p>© 2025 World Stories</p>
+</footer>
+
+<script>
+// Countries
+const countries = [
+  { id:'japan', name:'Japan', image:'assets/images/japan.jpg' },
+  { id:'vietnam', name:'Vietnam', image:'assets/images/vietnam.jpg' }
+];
+
+// Famous traveler proverbs
+const proverbs = [
+  "“We travel, some of us forever, to seek other states, other lives, other souls.” — Anaïs Nin",
+  "“The world is a book and those who do not travel read only one page.” — Saint Augustine",
+  "“Not all those who wander are lost.” — J.R.R. Tolkien",
+  "“Once a year, go someplace you’ve never been before.” — Anonymous"
+];
+
+// Inject country cards
+const countriesContainer = document.getElementById('countries');
+countries.forEach(country=>{
+  const card=document.createElement('div');
+  card.className='country-card';
+  card.innerHTML=`<img src="${country.image}" alt="${country.name}"><div class="country-name-overlay">${country.name}</div>`;
+  countriesContainer.appendChild(card);
+});
+
+// Carousel variables
+let currentIndex=0;
+const cards=document.querySelectorAll('.country-card');
+
+function getAverageColor(imgEl){
+  // Simplified: return a dark overlay for now
+  return 'rgba(0,0,0,0.3)';
+}
+
+function updateSlide(){
+  countriesContainer.style.transform=`translateX(${-currentIndex*100}%)`;
+  // Background from image
+  const img = new Image();
+  img.src = countries[currentIndex].image;
+  img.onload = ()=>{
+    document.body.style.background=`url(${countries[currentIndex].image}) center/cover no-repeat`;
+    document.body.style.backgroundBlendMode='overlay';
+    document.body.style.backgroundColor=getAverageColor(img);
+    // Adaptive text color (simple logic)
+    const brightness=150; // placeholder, can calculate from image
+    document.body.style.color = brightness<128?'#fff':'#000';
+  };
+}
+updateSlide();
+
+// Auto-slide every 4s
+setInterval(()=>{
+  currentIndex=(currentIndex+1)%cards.length;
+  updateSlide();
+},4000);
+
+// Proverbs
+const proverbEl=document.getElementById('proverb');
+let pIndex=0;
+function showProverb(){
+  proverbEl.textContent=proverbs[pIndex];
+  pIndex=(pIndex+1)%proverbs.length;
+}
+showProverb();
+setInterval(showProverb,7000);
+
+</script>
+</body>
+</html>  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
