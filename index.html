@@ -6,66 +6,59 @@
 <title>World Stories</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Segoe UI',sans-serif;
   min-height:100vh;
   color:#fff;
-  overflow-x:hidden;
+  background:#000;
   transition:background 1s ease,color 1s ease;
+  overflow-x:hidden;
 }
 
-/* ---------- WELCOME OVERLAY ---------- */
+/* ===== WELCOME OVERLAY ===== */
 #welcomeOverlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.35); /* MORE TRANSPARENT */
+  background:rgba(0,0,0,0.35);
   display:flex;
-  align-items:center;
   justify-content:center;
-  text-align:center;
+  align-items:center;
   z-index:9999;
-  pointer-events:all;
+  text-align:center;
 }
-
 #welcomeOverlay .line{
   opacity:0;
   transform:translateY(15px);
-  animation:fadeUp 0.8s ease forwards;
+  animation:fadeUp .8s forwards;
 }
-
-#welcomeOverlay .line:nth-child(1){ animation-delay:0.3s }
-#welcomeOverlay .line:nth-child(2){ animation-delay:1.2s }
-#welcomeOverlay .line:nth-child(3){ animation-delay:2.1s }
+#welcomeOverlay .line:nth-child(1){animation-delay:.3s}
+#welcomeOverlay .line:nth-child(2){animation-delay:1.2s}
+#welcomeOverlay .line:nth-child(3){animation-delay:2.1s}
 
 @keyframes fadeUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* ---------- HEADER ---------- */
+/* ===== HEADER ===== */
 header{
   text-align:center;
   padding:40px 20px;
 }
 header h1{font-size:3rem}
-header .crafted{font-size:1.2rem;opacity:.9}
-header p{margin-top:10px}
+header .crafted{opacity:.85}
+header p{margin-top:8px}
 
-/* ---------- CAROUSEL ---------- */
-.carousel-wrapper{
+/* ===== CAROUSEL ===== */
+.carousel{
   position:relative;
   height:460px;
-  width:100%;
-  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 .country-card{
   position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
   width:90%;
   max-width:900px;
   height:100%;
@@ -77,20 +70,20 @@ header p{margin-top:10px}
   width:100%;
   height:100%;
   object-fit:cover;
-  border-radius:16px;
+  border-radius:18px;
 }
 .country-name{
   position:absolute;
   bottom:25px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,.45);
   padding:10px 22px;
   font-size:2rem;
-  border-radius:8px;
+  border-radius:10px;
 }
 
-/* ---------- PROVERB ---------- */
+/* ===== PROVERB ===== */
 #proverb{
   text-align:center;
   margin:30px;
@@ -98,35 +91,28 @@ header p{margin-top:10px}
   font-size:1.2rem;
 }
 
-/* ---------- SIDEBAR ---------- */
+/* ===== SIDEBAR ===== */
 .sidebar{
   position:fixed;
   right:0;
   top:50%;
   transform:translateY(-50%);
-  width:220px;
-  background:rgba(255,255,255,0.9);
+  background:rgba(255,255,255,.9);
   color:#000;
   padding:15px;
+  width:220px;
   border-radius:12px 0 0 12px;
-  z-index:5;
 }
 .sidebar h3{text-align:center;margin-bottom:10px}
-.sidebar .fact{
-  font-size:.9rem;
-  margin-bottom:10px;
-  padding:8px;
-  background:#fff;
-  border-radius:6px;
-}
+.sidebar .fact{margin-bottom:8px;font-size:.9rem}
 
-/* ---------- VIDEOS ---------- */
+/* ===== VIDEOS ===== */
 .video-section{
   display:flex;
   justify-content:center;
   gap:20px;
-  margin:40px 20px;
   flex-wrap:wrap;
+  margin:40px 20px;
 }
 .video-section iframe{
   width:420px;
@@ -134,19 +120,18 @@ header p{margin-top:10px}
   border-radius:10px;
 }
 
-/* ---------- FOOTER ---------- */
+/* ===== FOOTER ===== */
 footer{
+  background:#111;
   text-align:center;
   padding:20px;
-  background:#111;
-  margin-top:40px;
 }
 
-/* ---------- MOBILE ---------- */
+/* ===== MOBILE ===== */
 @media(max-width:768px){
   .country-name{font-size:1.5rem}
-  .video-section iframe{width:100%}
   .sidebar{display:none}
+  .video-section iframe{width:100%}
 }
 </style>
 </head>
@@ -156,66 +141,62 @@ footer{
 <!-- WELCOME -->
 <div id="welcomeOverlay">
   <div>
-    <h1>WORLD STORIES</h1>
-    <p>crafted by an artist</p>
-    <p>Countries • Culture • Memory</p>
+    <div class="line"><h1>WORLD STORIES</h1></div>
+    <div class="line"><p class="crafted">crafted by an artist</p></div>
+    <div class="line"><p>Countries • Culture • Memory</p></div>
   </div>
 </div>
 
 <header>
   <h1>WORLD STORIES</h1>
-  <span class="crafted">crafted by an artist</span>
+  <p class="crafted">crafted by an artist</p>
   <p>Countries • Culture • Memory</p>
 </header>
 
-<!-- CAROUSEL -->
-<div class="carousel-wrapper" id="carousel"></div>
+<div class="carousel" id="carousel"></div>
 
 <div id="proverb"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <h3>Travel Facts</h3>
-  <div class="fact">Travel changes how you see the world.</div>
-  <div class="fact">UNESCO protects 1100+ heritage sites.</div>
-  <div class="fact">Every culture leaves a memory.</div>
+  <div class="fact">Travel changes perception.</div>
+  <div class="fact">UNESCO protects 1100+ sites.</div>
+  <div class="fact">Cultures live through memory.</div>
 </div>
 
-<!-- VIDEOS -->
 <section class="video-section">
   <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_ID_1" allowfullscreen></iframe>
   <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_ID_2" allowfullscreen></iframe>
 </section>
 
-<footer>
-  © 2025 World Stories
-</footer>
+<footer>© 2025 World Stories</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 <script>
-/* WELCOME */
+/* Remove welcome */
 setTimeout(()=>{
-  document.getElementById('welcomeOverlay').style.display='none';
-},2000);
+  const o=document.getElementById('welcomeOverlay');
+  o.style.opacity=0;
+  setTimeout(()=>o.remove(),1000);
+},3500);
 
-/* DATA */
+/* Data */
 const countries=[
  {name:'Japan',img:'assets/images/japan.jpg',link:'pages/japan.html'},
  {name:'Vietnam',img:'assets/images/vietnam.jpg',link:'pages/vietnam.html'}
 ];
-
 const proverbs=[
- "The world is a book — Saint Augustine",
  "Not all those who wander are lost — Tolkien",
- "Travel makes one modest — Gustave Flaubert",
- "Once a year, go somewhere new"
+ "The world is a book — Saint Augustine",
+ "Travel makes one modest — Flaubert",
+ "Life is a daring adventure — Helen Keller"
 ];
 
 const carousel=document.getElementById('carousel');
 const thief=new ColorThief();
 let index=0;
 
-/* CREATE CARDS */
+/* Cards */
 countries.forEach((c,i)=>{
   const a=document.createElement('a');
   a.href=c.link;
@@ -224,636 +205,32 @@ countries.forEach((c,i)=>{
   carousel.appendChild(a);
 });
 
-/* SLIDE */
 const cards=document.querySelectorAll('.country-card');
 function show(i){
   cards.forEach(c=>c.classList.remove('active'));
   cards[i].classList.add('active');
-
   const img=cards[i].querySelector('img');
   if(img.complete){
     const [r,g,b]=thief.getColor(img);
-    document.body.style.background=`linear-gradient(#000, rgb(${r},${g},${b}))`;
-    document.body.style.color=(r+g+b)/3<128?'#fff':'#000';
+    document.body.style.background=`linear-gradient(#000,rgb(${r},${g},${b}))`;
   }
 }
 show(0);
 
-/* AUTO */
+/* Auto slide */
 setInterval(()=>{
   index=(index+1)%cards.length;
   show(index);
 },4000);
 
-/* PROVERBS */
+/* Proverbs */
 let p=0;
+const pEl=document.getElementById('proverb');
+pEl.textContent=proverbs[0];
 setInterval(()=>{
-  document.getElementById('proverb').textContent=proverbs[p];
   p=(p+1)%proverbs.length;
-},5000);
-</script>
-
-</body>
-</html>}
-
-/* Sidebar */
-.sidebar {
-  position:fixed; top:50%; right:0; transform:translateY(-50%) translateX(100%);
-  background:rgba(255,255,255,0.9); padding:10px; border-radius:8px 0 0 8px;
-  width:200px; max-height:80vh; overflow-y:auto; z-index:2; transition: transform 0.5s ease;
-}
-.sidebar h3 { text-align:center; margin-bottom:10px; color:#333; }
-.sidebar .fact { background:#fff; margin-bottom:10px; padding:10px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); font-size:0.9em; opacity:0; transform:translateX(20px); transition: all 0.5s ease; }
-
-/* Sidebar toggle */
-.sidebar-toggle { display:none; position:fixed; top:50%; left:0; transform:translateY(-50%); z-index:3; background:#fff; padding:10px; border-radius:0 8px 8px 0; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
-
-/* Proverbs */
-.proverb { text-align:center; font-size:1.3em; margin:20px; font-style:italic; text-shadow:0 2px 6px rgba(0,0,0,0.5); transition: opacity 1s ease; }
-
-/* Video Section */
-.video-section { display:flex; justify-content:center; gap:20px; margin:40px 0; opacity:0; transform:translateY(50px); transition: all 1s ease; }
-.video-section.show { opacity:1; transform:translateY(0); }
-.video-section iframe { width:500px; height:280px; border:none; border-radius:10px; }
-
-/* Footer */
-footer { text-align:center; padding:20px; color:#fff; background:#111; }
-
-/* Responsive */
-@media(max-width:768px){
-  .video-section { flex-direction:column; align-items:center; }
-  .video-section iframe { width:90%; height:200px; }
-  .country-name-overlay { font-size:1.5em; bottom:15px; padding:6px 12px; }
-  .sidebar { width:80%; height:100vh; top:0; max-height:none; }
-  .sidebar-toggle { display:block; }
-}
-</style>
-</head>
-<body>
-
-<div id="welcomeOverlay">
-  <h1>WORLD STORIES</h1>
-  <span class="crafted">crafted by an artist</span>
-  <p>Countries • Culture • Memory</p>
-</div>
-
-<header class="site-header">
-  <h1>WORLD STORIES</h1>
-  <span class="crafted">crafted by an artist</span>
-  <p>Countries • Culture • Memory</p>
-</header>
-
-<div class="countries-carousel-wrapper">
-  <div id="countries" class="countries-carousel"></div>
-</div>
-
-<div class="proverb" id="proverb"></div>
-
-<div class="sidebar-toggle" id="sidebarToggle">☰</div>
-
-<div class="sidebar" id="sidebar">
-  <h3>Travel Facts & News</h3>
-  <div class="fact">Fact: Adventure begins where comfort ends.</div>
-  <div class="fact">News: UNESCO announces new cultural heritage sites.</div>
-  <div class="fact">Fact: Pacific Crest Trail spans 2,650 miles.</div>
-</div>
-
-<section class="video-section" id="videos">
-  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_1" allowfullscreen></iframe>
-  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_2" allowfullscreen></iframe>
-</section>
-
-<footer>
-  <p>© 2025 World Stories</p>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-<script>
-// Welcome overlay
-setTimeout(()=>{
-  const overlay=document.getElementById('welcomeOverlay');
-  overlay.style.opacity='0';
-  setTimeout(()=>{ overlay.style.display='none'; },1000);
-},2000);
-
-// Countries
-const countries = [
-  { id:'japan', name:'Japan', image:'assets/images/japan.jpg', link:'pages/japan.html' },
-  { id:'vietnam', name:'Vietnam', image:'assets/images/vietnam.jpg', link:'pages/vietnam.html' }
-];
-
-// Proverbs
-const proverbs = [
-  "“We travel, some of us forever, to seek other states, other lives, other souls.” — Anaïs Nin",
-  "“The world is a book and those who do not travel read only one page.” — Saint Augustine",
-  "“Not all those who wander are lost.” — J.R.R. Tolkien",
-  "“Once a year, go someplace you’ve never been before.” — Anonymous"
-];
-
-// Inject cards
-const countriesContainer=document.getElementById('countries');
-countries.forEach((country,index)=>{
-  const card=document.createElement('a');
-  card.className='country-card';
-  if(index===0) card.classList.add('active');
-  card.href=country.link;
-  card.innerHTML=`<img src="${country.image}" alt="${country.name}"><div class="country-name-overlay">${country.name}</div>`;
-  countriesContainer.appendChild(card);
-});
-
-const cards=document.querySelectorAll('.country-card');
-let currentIndex = 0;
-const colorThief = new ColorThief();
-
-// Function to update slide
-function updateSlide(){
-  cards.forEach((card,i)=>{
-    card.classList.remove('active');
-    card.style.transform='scale(1) translateZ(0)';
-  });
-  const activeCard=cards[currentIndex];
-  activeCard.classList.add('active');
-  activeCard.style.transform='scale(1.02) translateZ(30px)';
-
-  const imgEl = activeCard.querySelector('img');
-  if(imgEl.complete){
-    const dominant = colorThief.getColor(imgEl);
-    const color = `rgb(${dominant[0]},${dominant[1]},${dominant[2]})`;
-    document.body.style.background = `linear-gradient(to bottom, rgba(0,0,0,0.5), ${color})`;
-    const brightness = (dominant[0]*299 + dominant[1]*587 + dominant[2]*114)/1000;
-    document.body.style.color = brightness<128?'#fff':'#000';
-  } else {
-    imgEl.addEventListener('load', updateSlide);
-  }
-}
-updateSlide();
-
-// Auto-slide
-let autoSlide = setInterval(()=>{
-  currentIndex=(currentIndex+1)%countries.length;
-  updateSlide();
-},4000);
-
-// Swipe & drag support
-let startX = 0, isDragging = false, mouseDown = false, mouseStartX = 0;
-const wrapper = document.querySelector('.countries-carousel-wrapper');
-
-function handleSlide(delta){
-  if(delta>50){ currentIndex = (currentIndex-1+countries.length)%countries.length; }
-  else if(delta<-50){ currentIndex = (currentIndex+1)%countries.length; }
-  updateSlide();
-}
-
-wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; clearInterval(autoSlide); });
-wrapper.addEventListener('touchend', e => { if(!isDragging) return; handleSlide(e.changedTouches[0].clientX-startX); autoSlide=setInterval(()=>{currentIndex=(currentIndex+1)%countries.length; updateSlide();},4000); isDragging=false; });
-
-wrapper.addEventListener('mousedown', e => { mouseDown=true; mouseStartX=e.clientX; clearInterval(autoSlide); });
-wrapper.addEventListener('mouseup', e => { if(!mouseDown) return; handleSlide(e.clientX-mouseStartX); autoSlide=setInterval(()=>{currentIndex=(currentIndex+1)%countries.length; updateSlide();},4000); mouseDown=false; });
-
-// Proverbs rotation
-const proverbEl=document.getElementById('proverb');
-let pIndex=0;
-function showProverb(){ proverbEl.style.opacity='0'; setTimeout(()=>{ proverbEl.textContent=proverbs[pIndex]; proverbEl.style.opacity='1'; pIndex=(pIndex+1)%proverbs.length; },500); }
-showProverb();
-setInterval(showProverb,7000);
-
-// Sidebar toggle with animation
-const sidebar=document.getElementById('sidebar');
-const sidebarToggle=document.getElementById('sidebarToggle');
-sidebarToggle.addEventListener('click',()=>{
-  const isOpen = sidebar.style.transform==='translateX(0%)';
-  sidebar.style.transform = isOpen?'translateX(100%)':'translateX(0%)';
-  // Animate facts
-  if(!isOpen){
-    const facts = sidebar.querySelectorAll('.fact');
-    facts.forEach((f,i)=>{
-      setTimeout(()=>{ f.style.opacity='1'; f.style.transform='translateX(0)'; }, i*200);
-    });
-  } else {
-    const facts = sidebar.querySelectorAll('.fact');
-    facts.forEach((f)=>{ f.style.opacity='0'; f.style.transform='translateX(20px)'; });
-  }
-});
-
-// Videos animation on scroll
-const videos = document.getElementById('videos');
-function checkVideos(){
-  const rect = videos.getBoundingClientRect();
-  if(rect.top < window.innerHeight-100){ videos.classList.add('show'); window.removeEventListener('scroll', checkVideos); }
-}
-window.addEventListener('scroll', checkVideos);
-checkVideos();
-</script>
-</body>
-</html>.countries-carousel {
-  display:flex;
-  transition: transform 1s ease-in-out;
-  height:100%;
-  position:relative;
-}
-.country-card {
-  flex:0 0 100%;
-  height:100%;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.country-card img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.country-name-overlay {
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(0,0,0,0.4);
-  color:#fff;
-  padding:10px 20px;
-  border-radius:8px;
-  font-size:2em;
-  font-family:'Georgia', serif;
-  text-shadow:0 2px 6px rgba(0,0,0,0.7);
-}
-
-/* Proverbs */
-.proverb {
-  text-align:center;
-  font-size:1.3em;
-  margin:20px;
-  font-style:italic;
-  color:#fff;
-  text-shadow:0 2px 6px rgba(0,0,0,0.5);
-}
-
-/* Video Section */
-.video-section {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin:40px 0;
-}
-.video-section iframe { width:500px; height:280px; border:none; border-radius:10px; }
-
-/* Responsive */
-@media(max-width:768px){
-  .video-section { flex-direction:column; align-items:center; }
-  .video-section iframe { width:90%; height:200px; }
-  .country-name-overlay { font-size:1.5em; bottom:15px; padding:6px 12px; }
-}
-</style>
-</head>
-<body>
-
-<header class="site-header">
-  <h1>WORLD STORIES</h1>
-  <span class="crafted">crafted by an artist</span>
-  <p>Countries • Culture • Memory</p>
-</header>
-
-<div class="countries-carousel-wrapper">
-  <div id="countries" class="countries-carousel"></div>
-</div>
-
-<div class="proverb" id="proverb"></div>
-
-<section class="video-section">
-  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_1" allowfullscreen></iframe>
-  <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID_2" allowfullscreen></iframe>
-</section>
-
-<footer>
-  <p>© 2025 World Stories</p>
-</footer>
-
-<script>
-// Countries
-const countries = [
-  { id:'japan', name:'Japan', image:'assets/images/japan.jpg' },
-  { id:'vietnam', name:'Vietnam', image:'assets/images/vietnam.jpg' }
-];
-
-// Famous traveler proverbs
-const proverbs = [
-  "“We travel, some of us forever, to seek other states, other lives, other souls.” — Anaïs Nin",
-  "“The world is a book and those who do not travel read only one page.” — Saint Augustine",
-  "“Not all those who wander are lost.” — J.R.R. Tolkien",
-  "“Once a year, go someplace you’ve never been before.” — Anonymous"
-];
-
-// Inject country cards
-const countriesContainer = document.getElementById('countries');
-countries.forEach(country=>{
-  const card=document.createElement('div');
-  card.className='country-card';
-  card.innerHTML=`<img src="${country.image}" alt="${country.name}"><div class="country-name-overlay">${country.name}</div>`;
-  countriesContainer.appendChild(card);
-});
-
-// Carousel variables
-let currentIndex=0;
-const cards=document.querySelectorAll('.country-card');
-
-function getAverageColor(imgEl){
-  // Simplified: return a dark overlay for now
-  return 'rgba(0,0,0,0.3)';
-}
-
-function updateSlide(){
-  countriesContainer.style.transform=`translateX(${-currentIndex*100}%)`;
-  // Background from image
-  const img = new Image();
-  img.src = countries[currentIndex].image;
-  img.onload = ()=>{
-    document.body.style.background=`url(${countries[currentIndex].image}) center/cover no-repeat`;
-    document.body.style.backgroundBlendMode='overlay';
-    document.body.style.backgroundColor=getAverageColor(img);
-    // Adaptive text color (simple logic)
-    const brightness=150; // placeholder, can calculate from image
-    document.body.style.color = brightness<128?'#fff':'#000';
-  };
-}
-updateSlide();
-
-// Auto-slide every 4s
-setInterval(()=>{
-  currentIndex=(currentIndex+1)%cards.length;
-  updateSlide();
-},4000);
-
-// Proverbs
-const proverbEl=document.getElementById('proverb');
-let pIndex=0;
-function showProverb(){
-  proverbEl.textContent=proverbs[pIndex];
-  pIndex=(pIndex+1)%proverbs.length;
-}
-showProverb();
-setInterval(showProverb,7000);
-
-</script>
-</body>
-</html>  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
-  z-index: 0;
-}
-
-/* Header */
-header.site-header {
-  text-align: center;
-  padding: 40px 20px;
-  color: #fff;
-  z-index: 1;
-}
-header.site-header h1 { font-size: 3em; margin: 0; }
-header.site-header .crafted { font-size: 1.2em; font-weight: 300; margin: 5px 0; }
-header.site-header p { font-size: 1.2em; margin: 10px 0 0; }
-
-/* Carousel */
-.countries-carousel-wrapper { overflow: hidden; width: 100%; position: relative; padding: 40px 0; z-index: 1; }
-.countries-carousel { display: flex; transition: transform 1s ease-in-out; }
-.country-card {
-  flex: 0 0 250px;
-  height: 150px;
-  margin: 0 15px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  cursor: pointer;
-}
-.country-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.9);
-  padding: 10px;
-  border-radius: 8px 0 0 8px;
-  width: 200px;
-  max-height: 80vh;
-  overflow-y: auto;
-  z-index: 2;
-  transition: transform 0.3s ease;
-}
-.sidebar h3 { text-align: center; margin-bottom: 10px; color: #333; }
-.sidebar .fact { background: #fff; margin-bottom: 10px; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 0.9em; }
-
-/* Sidebar toggle */
-.sidebar-toggle {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  z-index: 3;
-  background: #fff;
-  padding: 10px;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Proverbs */
-.proverb {
-  text-align: center;
-  font-size: 1.3em;
-  margin: 20px;
-  color: #fff;
-  font-style: italic;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  z-index: 1;
-  position: relative;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .countries-carousel-wrapper { padding: 20px 0; }
-  .country-card { flex: 0 0 45%; margin: 10px; }
-  .sidebar { transform: translateX(100%); width: 80%; max-height: none; top: 0; height: 100vh; }
-  .sidebar-toggle { display: block; }
-}
-</style>
-</head>
-
-<body>
-
-<header class="site-header">
-  <h1>WORLD STORIES</h1>
-  <span class="crafted">crafted by an artist</span>
-  <p>Countries • Culture • Memory</p>
-</header>
-
-<!-- Carousel -->
-<div class="countries-carousel-wrapper">
-  <div id="countries" class="countries-carousel"></div>
-</div>
-
-<!-- Proverbs -->
-<div class="proverb" id="proverb"></div>
-
-<!-- Sidebar toggle (mobile) -->
-<div class="sidebar-toggle" id="sidebarToggle">☰</div>
-
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <h3>Travel Facts & News</h3>
-  <div class="fact">Fact: Adventure begins where comfort ends.</div>
-  <div class="fact">News: UNESCO announces new cultural heritage sites.</div>
-  <div class="fact">Fact: The Pacific Crest Trail spans 2,650 miles.</div>
-  <div class="fact">Fact: Cuba’s Viñales Valley has ancient mogotes.</div>
-</div>
-
-<!-- Video and Map Sections (unchanged) -->
-<section class="video-section">
-  <h2>Latest Stories</h2>
-  <div class="video-grid">
-    <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID" allowfullscreen></iframe>
-      <p class="video-caption">Featured Story</p>
-    </div>
-  </div>
-</section>
-
-<section class="map">
-  <h2>World Map (coming soon)</h2>
-  <img src="assets/images/world-map-placeholder.jpg" alt="World Map">
-</section>
-
-<footer><p>© 2025 World Stories</p></footer>
-
-<script>
-// Countries & backgrounds with gradients
-const countries = [
-  { id:'japan', name:'Japan', image:'assets/images/japan.jpg', gradient:'linear-gradient(120deg,#ffecd2,#fcb69f)' },
-  { id:'vietnam', name:'Vietnam', image:'assets/images/vietnam.jpg', gradient:'linear-gradient(120deg,#cfd9df,#e2ebf0)' }
-];
-
-// Famous traveler proverbs
-const proverbs = [
-  "“We travel, some of us forever, to seek other states, other lives, other souls.” — Anaïs Nin",
-  "“The world is a book and those who do not travel read only one page.” — Saint Augustine",
-  "“Not all those who wander are lost.” — J.R.R. Tolkien",
-  "“Once a year, go someplace you’ve never been before.” — Anonymous",
-  "“Travel brings power and love back into your life.” — Rumi",
-  "“Wherever you go becomes a part of you somehow.” — Anita Desai",
-  "“The gladdest moment in human life is a departure into unknown lands.” — Sir Richard Burton",
-  "“Life is either a daring adventure or nothing.” — Helen Keller"
-];
-
-// Inject country cards
-const countriesContainer = document.getElementById('countries');
-countries.forEach(country => {
-  const card = document.createElement('a');
-  card.className = 'country-card';
-  card.href = `pages/${country.id}.html`;
-  card.innerHTML = `<img src="${country.image}" alt="${country.name}">`;
-  countriesContainer.appendChild(card);
-});
-
-// Sliding carousel + background
-let currentIndex = 0;
-function updateSlide() {
-  // Slide transform
-  countriesContainer.style.transform = `translateX(${-currentIndex*270}px)`;
-  // Dynamic gradient
-  document.body.style.background = countries[currentIndex].gradient;
-  document.body.style.background += `, url(${countries[currentIndex].image}) center/cover no-repeat`;
-}
-updateSlide();
-
-setInterval(()=> {
-  currentIndex = (currentIndex +1) % countries.length;
-  updateSlide();
-},4000);
-
-// Proverbs rotation
-const proverbEl = document.getElementById('proverb');
-let pIndex = 0;
-function showProverb(){
-  proverbEl.textContent = proverbs[pIndex];
-  pIndex = (pIndex+1) % proverbs.length;
-}
-showProverb();
-setInterval(showProverb,7000);
-
-// Sidebar toggle
-const sidebar = document.getElementById('sidebar');
-const sidebarToggle = document.getElementById('sidebarToggle');
-sidebarToggle.addEventListener('click',()=>{
-  if(sidebar.style.transform === 'translateX(0%)'){
-    sidebar.style.transform = 'translateX(100%)';
-  } else {
-    sidebar.style.transform = 'translateX(0%)';
-  }
-});
-</script>
-
-</body>
-</html><!-- Country Cards Carousel -->
-<section id="countries" class="countries-carousel">
-  <!-- Cards injected dynamically from countries.json -->
-</section>
-
-<!-- Homepage Video Section -->
-<section class="video-section">
-  <h2>Latest Stories</h2>
-  <div class="video-grid">
-    <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID" allowfullscreen></iframe>
-      <p class="video-caption">Example video caption</p>
-    </div>
-    <!-- Add more video slots here -->
-  </div>
-</section>
-
-<!-- World Map Section -->
-<section class="map">
-  <h2>World Map (coming soon)</h2>
-  <img src="assets/images/world-map-placeholder.jpg" alt="World Map">
-</section>
-
-<footer>
-  <p>© 2025 World Stories</p>
-</footer>
-
-<!-- Carousel JS -->
-<script>
-const countriesContainer = document.getElementById('countries');
-
-fetch('data/countries.json')
-  .then(res => res.json())
-  .then(countries => {
-    countries.forEach(country => {
-      const card = document.createElement('a');
-      card.className = 'country-card';
-      card.href = `pages/${country.id}.html`;
-      card.setAttribute('data-name', country.name);
-      card.innerHTML = `<img src="${country.image}" alt="${country.name}">`;
-      countriesContainer.appendChild(card);
-    });
-
-    // Auto-scroll carousel
-    let scrollAmount = 0;
-    const scrollStep = 260; // card width + gap
-    const delay = 3000; // 3 seconds
-
-    setInterval(() => {
-      scrollAmount += scrollStep;
-      if (scrollAmount >= countriesContainer.scrollWidth - countriesContainer.clientWidth) {
-        scrollAmount = 0; // reset
-      }
-      countriesContainer.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }, delay);
-  });
+  pEl.textContent=proverbs[p];
+},6000);
 </script>
 
 </body>
